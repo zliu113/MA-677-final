@@ -1,0 +1,584 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Final Project},
+            pdfauthor={Zhaobin Liu},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Final Project}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Zhaobin Liu}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{5/4/2019}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Statistics and the Law}\label{statistics-and-the-law}
+
+H0: Rate of white applicants are the same as minority applicant H1: Rate
+of white applicants are different
+
+Assuming the alpha level is 0.05.We will conduct a two-sample t-test to
+test the argument whether there is sufficient evidence for
+discrimination. Then we will do another two-sample t-test to test
+whether there is sufficient evidence for discriminatiion bewteen high
+income white and high income minority.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{acorn <-}\KeywordTok{read.csv}\NormalTok{(}\StringTok{"acorn.csv"}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(acorn}\OperatorTok{$}\NormalTok{MIN,acorn}\OperatorTok{$}\NormalTok{WHITE)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/assumption-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ftest <-}\StringTok{ }\KeywordTok{var.test}\NormalTok{(acorn}\OperatorTok{$}\NormalTok{MIN,acorn}\OperatorTok{$}\NormalTok{WHITE)}
+\NormalTok{ftest}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  F test to compare two variances
+## 
+## data:  acorn$MIN and acorn$WHITE
+## F = 2.8026, num df = 19, denom df = 19, p-value = 0.02993
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  1.109297 7.080589
+## sample estimates:
+## ratio of variances 
+##           2.802583
+\end{verbatim}
+
+We can see that the p-value of F-test is p = 0.02993. It is less than
+the significance level alpha which is 0.05. Thus, there is significant
+difference between the variances of the two sets of data. We can use
+t-test witch assume unequal variances.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res <-}\StringTok{ }\KeywordTok{t.test}\NormalTok{(acorn}\OperatorTok{$}\NormalTok{MIN, acorn}\OperatorTok{$}\NormalTok{WHITE, }\DataTypeTok{var.equal =} \OtherTok{FALSE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"greater"}\NormalTok{)}
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  acorn$MIN and acorn$WHITE
+## t = 6.2533, df = 31.028, p-value = 2.979e-07
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  15.49313      Inf
+## sample estimates:
+## mean of x mean of y 
+##   36.8815   15.6250
+\end{verbatim}
+
+Conclusion:
+
+The p-value of the test is 2.979e-07 that is less than the significance
+level alpha which is 0.05. We reject the null hypothesis and support the
+argument that the data are sufficient evidence of discrimination to
+warrant corrective action.
+
+\subsection{Comparing suppliers}\label{comparing-suppliers}
+
+We will use chi-square test to conduct the analysis since the quality of
+ornithopters are categorical, instead of continuous variable
+
+Ho: ornithopters made by all three schools produce same qualities Ha:
+ornithopters made by all three shcools produce different qualities
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{,}\DecValTok{23}\NormalTok{,}\DecValTok{89}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{62}\NormalTok{,}\DecValTok{21}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{119}\NormalTok{),}\DataTypeTok{ncol=}\DecValTok{3}\NormalTok{,}\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{,}\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(table) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Dead"}\NormalTok{,}\StringTok{"Art"}\NormalTok{,}\StringTok{"Fly"}\NormalTok{)}
+\KeywordTok{rownames}\NormalTok{(table) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Area51"}\NormalTok{,}\StringTok{"BDV"}\NormalTok{,}\StringTok{"Giffen"}\NormalTok{)}
+\NormalTok{table <-}\StringTok{ }\KeywordTok{as.table}\NormalTok{(table)}
+
+\KeywordTok{chisq.test}\NormalTok{(table,}\DataTypeTok{correct =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table
+## X-squared = 1.3006, df = 4, p-value = 0.8613
+\end{verbatim}
+
+Since the p-value is 0.8613 greater than 0.05, we fail to reject the
+null hypothesis. We conclude that ornithopters made by all three schools
+produce same qualities.
+
+\subsection{How deadly are sharks}\label{how-deadly-are-sharks}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shark <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"sharkattack.csv"}\NormalTok{)}
+\NormalTok{p <-}\StringTok{ }\NormalTok{shark}\OperatorTok{%>%}\KeywordTok{filter}\NormalTok{(Country.code}\OperatorTok{==}\StringTok{"US"}\OperatorTok{|}\NormalTok{Country.code}\OperatorTok{==}\StringTok{"AU"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Type}\OperatorTok{==}\StringTok{"Provoked"}\OperatorTok{|}\NormalTok{Type}\OperatorTok{==}\StringTok{"Unprovoked"}\NormalTok{)}
+\NormalTok{p_table<-}\KeywordTok{table}\NormalTok{(}\KeywordTok{droplevels}\NormalTok{(p}\OperatorTok{$}\NormalTok{Type),}\KeywordTok{droplevels}\NormalTok{(p}\OperatorTok{$}\NormalTok{Country))}
+\NormalTok{coul =}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(}\DecValTok{3}\NormalTok{, }\StringTok{"Pastel2"}\NormalTok{) }
+\NormalTok{data_percentage=}\KeywordTok{apply}\NormalTok{(p_table, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{*}\DecValTok{100}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(x,}\DataTypeTok{na.rm=}\NormalTok{T)\})}
+\KeywordTok{barplot}\NormalTok{(data_percentage,}\DataTypeTok{xlab=}\StringTok{"group"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"provoked v.s. unprovoked"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/data exploration-1.pdf}
+
+By looking at the comparsion between Australia and United States on
+provked vs unprovoked, we can see that they are at similiar proportion.
+Provking has about 15\% of all shark attacks in Australia and 12\% of
+shark attacks in the United States.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fatal<-p<-shark}\OperatorTok{%>%}\KeywordTok{filter}\NormalTok{(Country.code}\OperatorTok{==}\StringTok{"US"}\OperatorTok{|}\NormalTok{Country.code}\OperatorTok{==}\StringTok{"AU"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Fatal}\OperatorTok{==}\StringTok{"Y"}\OperatorTok{|}\NormalTok{Fatal}\OperatorTok{==}\StringTok{"N"}\NormalTok{)}
+\NormalTok{fatal<-}\KeywordTok{table}\NormalTok{(}\KeywordTok{droplevels}\NormalTok{(fatal}\OperatorTok{$}\NormalTok{Country),}\KeywordTok{droplevels}\NormalTok{(fatal}\OperatorTok{$}\NormalTok{Fatal))}
+
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(fatal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule
+& N & Y\tabularnewline
+\midrule
+\endhead
+Australia & 879 & 318\tabularnewline
+United States & 1795 & 217\tabularnewline
+\bottomrule
+\end{longtable}
+
+By looking at the fatal versus non-fatal sharks attacks in these two
+countrie, we can see that there are more sharks attacks in the United
+States. On the other hand, the proportion of fatal attacks in Australia
+(26.5\%) is much higher than that in the United States (10\%). To
+further test whether Sharks Australia are more deadly or fatal than
+those in the United States, we will conduct the chi-square test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{chisq.test}\NormalTok{(fatal,}\DataTypeTok{correct =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  fatal
+## X-squared = 134.54, df = 1, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prob <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{0.2739171}\NormalTok{,}\FloatTok{0.5593643}\NormalTok{,}\FloatTok{0.09909629}\NormalTok{,}\FloatTok{0.06762231}\NormalTok{), }\DataTypeTok{nrow=}\DecValTok{2}\NormalTok{, }
+               \DataTypeTok{dimnames =} \KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Australi"}\NormalTok{,}\StringTok{"US"}\NormalTok{),}\KeywordTok{c}\NormalTok{(}\StringTok{"NonFatal"}\NormalTok{,}\StringTok{"Fatal"}\NormalTok{)))}
+\NormalTok{prob}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           NonFatal      Fatal
+## Australi 0.2739171 0.09909629
+## US       0.5593643 0.06762231
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{total<-}\DecValTok{879}\OperatorTok{+}\DecValTok{318}\OperatorTok{+}\DecValTok{1795}\OperatorTok{+}\DecValTok{217}
+\KeywordTok{pwr.chisq.test}\NormalTok{(}\DataTypeTok{w =} \KeywordTok{ES.w2}\NormalTok{(prob), }\DataTypeTok{N =}\NormalTok{ total, }\DataTypeTok{df =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sig.level =} \FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##      Chi squared power calculation 
+## 
+##               w = 0.2047583
+##               N = 3209
+##              df = 1
+##       sig.level = 0.05
+##           power = 1
+## 
+## NOTE: N is the number of observations
+\end{verbatim}
+
+From the chi-square test, we have sufficient evidence to say that that
+sharks attacks in Australia is more fatal than that of in the United
+States even though the number of attacks in the United States is higher
+than that of Australia. With sample size equal to 3209, the statistical
+power of the test chi-square test is 1.
+
+\subsection{Power Analysis}\label{power-analysis}
+
+The arcsine transformation is calculated by two times the arcsine of the
+square root of the proportion.We can transform the proportional
+parameter from (0,1) to (−π/2,π/2). The effect of the arcsine
+transformation is similar to the logit. It pulls out the ends of the
+distribution except the extent that the logit does.
+
+The power to detect the hypothetical parameters are 0.65 and 0.45 is
+0.48 while the power to detect the difference between hypothetical
+parameters 0.25 and 0.05 is 0.82, even though the difference between
+both pairs of values is 0.2. The reason is that 0.25 and 0.05 are at the
+end which is extreme value of the distribution. Therefore, it takes more
+power to detect and arcsine transformation can solve this problem
+
+\subsection{Estimater}\label{estimater}
+
+\section{Case1 MLE of Exponential
+Distribution}\label{case1-mle-of-exponential-distribution}
+
+\[f(x;\lambda)=\lambda e^{-\lambda x}\]
+
+\[L(\lambda;X_1,...,X_n)=\lambda e^{-\lambda X_1}\lambda e^{-\lambda X_2}...\lambda e^{-\lambda X_n}\]
+
+\[L(\lambda;X_1,...,X_n)=\lambda^ne^{-\lambda\sum X_i}\]
+
+\[l(\lambda;X_1,...,X_n)=nlog(\lambda)-\lambda \sum X_i\]
+
+\[\frac{dl(\lambda;X1,...,Xn)}{d\lambda}=\frac{n}{\lambda}-\sum X=0\]
+
+\[\hat\lambda=\frac{n}{\sum X_i}=\frac{1}{\bar X_n}\]
+
+\section{\texorpdfstring{Case2 Moment Estimator and MLE for new
+distribution
+\(\theta\)}{Case2 Moment Estimator and MLE for new distribution \textbackslash{}theta}}\label{case2-moment-estimator-and-mle-for-new-distribution-theta}
+
+MOM:
+
+\begin{align}
+E[X]\ & =\ \int^1_0 x((1-\theta)\ +\ 2\theta x)dx \notag \\ 
+& =\ (1-\theta)\int^1_0 xdx +\ \int^1_0 2\theta x^2 dx \notag \\ 
+& =\ (1-\theta)\frac{1}{2}x^2\arrowvert^1_0\ +\ 2\theta \frac{1}{3}x^3\arrowvert^1_0\ \notag \\ 
+& =\ \frac{1}{2} -\ \frac{1}{2}\theta\ +\ \frac{2}{3}\theta \notag \\
+& =\ \frac{1}{6}\theta+\frac{1}{2} \notag
+\end{align}
+
+MLE:
+\[L(\theta;X_1,...,X_n)=[(1-\theta)+2\theta X_1]...[(1-\theta)+2\theta X_n]\]
+
+\[l(\theta;X_1,...,X_n)=log[(1-\theta)+2\theta X_1]+...+log[(1-\theta)+2\theta X_1]\]
+In this situation, we cannot taking the derivative of
+\(l(\theta;X_1,...,X_n)\) to find the maximum value with corresponding
+\(\theta\).
+
+\subsection{Rain in Southern Illinois}\label{rain-in-southern-illinois}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ill.}\DecValTok{60}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"D:/ma677/677final/ill-60.txt"}\NormalTok{, }\DataTypeTok{quote=}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\DataTypeTok{comment.char=}\StringTok{""}\NormalTok{)}
+\NormalTok{yr60<-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.array}\NormalTok{(ill.}\DecValTok{60}\NormalTok{[,}\DecValTok{1}\NormalTok{]))}
+\NormalTok{ill.}\DecValTok{61}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"D:/ma677/677final/ill-61.txt"}\NormalTok{, }\DataTypeTok{quote=}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\DataTypeTok{comment.char=}\StringTok{""}\NormalTok{)}
+\NormalTok{yr61<-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.array}\NormalTok{(ill.}\DecValTok{61}\NormalTok{[,}\DecValTok{1}\NormalTok{]))}
+\NormalTok{ill.}\DecValTok{62}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"D:/ma677/677final/ill-62.txt"}\NormalTok{, }\DataTypeTok{quote=}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\DataTypeTok{comment.char=}\StringTok{""}\NormalTok{)}
+\NormalTok{yr62<-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.array}\NormalTok{(ill.}\DecValTok{62}\NormalTok{[,}\DecValTok{1}\NormalTok{]))}
+\NormalTok{ill.}\DecValTok{63}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"D:/ma677/677final/ill-63.txt"}\NormalTok{, }\DataTypeTok{quote=}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\DataTypeTok{comment.char=}\StringTok{""}\NormalTok{)}
+\NormalTok{yr63<-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.array}\NormalTok{(ill.}\DecValTok{63}\NormalTok{[,}\DecValTok{1}\NormalTok{]))}
+\NormalTok{ill.}\DecValTok{64}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"D:/ma677/677final/ill-64.txt"}\NormalTok{, }\DataTypeTok{quote=}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\DataTypeTok{comment.char=}\StringTok{""}\NormalTok{)}
+\NormalTok{yr64<-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.array}\NormalTok{(ill.}\DecValTok{64}\NormalTok{[,}\DecValTok{1}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(fitdistrplus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'fitdistrplus' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: MASS
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: survival
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: npsurv
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'npsurv' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lsei
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'lsei' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotdist}\NormalTok{(yr60)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/use fitdistplus-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotdist}\NormalTok{(yr61)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/use fitdistplus-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotdist}\NormalTok{(yr62)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/use fitdistplus-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotdist}\NormalTok{(yr63)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/use fitdistplus-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotdist}\NormalTok{(yr64)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/use fitdistplus-5.pdf}
+
+From the distribution we can get that: the total rainfall for 1960 is
+10.574.The total rainfall for 1961 is 13.197.The total rainfall for 1962
+is 10.346. The total rainfall for 1963 is 9.71.The total rainfall for
+1960 is 7.11.
+
+From the total rainfall of each year, the rainfall in 1961 is definitely
+more than the others because its 13.2 units of rainfall in total. From
+the distribution of rainfall in year 1960, we can see that this year is
+wet because of storms. Even though it is not a lot, it produces much
+more rain each time comparing to rainfall in other 4 years. In terms of
+all distribution in 5 years, they look quite similar due to the most
+rainfall which is concentrated on the left side of the distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_rainfall<-}\KeywordTok{c}\NormalTok{(yr60,yr61,yr62,yr63,yr64)}
+
+
+\NormalTok{gamma <-}\StringTok{ }\KeywordTok{fitdist}\NormalTok{(all_rainfall, }\StringTok{"gamma"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fitting of the distribution ' gamma ' by maximum likelihood 
+## Parameters : 
+##        estimate Std. Error
+## shape 0.4408386  0.0337663
+## rate  1.9648409  0.2474440
+## Loglikelihood:  185.3477   AIC:  -366.6954   BIC:  -359.8455 
+## Correlation matrix:
+##           shape      rate
+## shape 1.0000000 0.6082109
+## rate  0.6082109 1.0000000
+\end{verbatim}
+
+We fit the gamma distribution into all observed rainfall data of year
+between 1960 and 1964. From the density and QQplots, the gamma
+distribution fits really well on this data. The authors are right to use
+gamma distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f <-}\StringTok{ }\KeywordTok{fitdist}\NormalTok{(all_rainfall, }\StringTok{"gamma"}\NormalTok{,}\DataTypeTok{method =} \StringTok{"mme"}\NormalTok{)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{bootdist}\NormalTok{(f)}
+\KeywordTok{summary}\NormalTok{(b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parametric bootstrap medians and 95% percentile CI 
+##          Median      2.5%     97.5%
+## shape 0.3882525 0.2730412 0.5260771
+## rate  1.7327806 1.1453228 2.5510982
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fgamma <-}\StringTok{ }\KeywordTok{fitdist}\NormalTok{(all_rainfall, }\StringTok{"gamma"}\NormalTok{,}\DataTypeTok{method =} \StringTok{"mle"}\NormalTok{)}
+\NormalTok{bgmm <-}\StringTok{ }\KeywordTok{bootdist}\NormalTok{(fgamma)}
+\KeywordTok{summary}\NormalTok{(bgmm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parametric bootstrap medians and 95% percentile CI 
+##          Median      2.5%     97.5%
+## shape 0.4418645 0.3811267 0.5131649
+## rate  1.9764049 1.5522837 2.5186370
+\end{verbatim}
+
+For method of moment, the 95\% confidence interval of shape from
+bootstrap sample is (0.2761133,0.5290801), the rate is
+(1.1749219,2.5559406). For the MLE, the 95\% confidence interval of
+shape from bootstrap sample is (0.3852016,0.514886),the rate is
+(1.5715661,2.599747). Obviously, the MLE estimates have wider CI and
+lower variances.The MLE is better due to its lower variance
+
+\subsection{Decision Theory}\label{decision-theory}
+
+
+\end{document}

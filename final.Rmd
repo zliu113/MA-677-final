@@ -1,0 +1,217 @@
+---
+title: "Final Project"
+author: "Zhaobin Liu"
+date: "5/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load(haven,ggplot2, reshape2,dplyr,car,FSA,rcompanion,knitr,RColorBrewer,pwr)
+```
+
+## Statistics and the Law
+
+H0: Rate of white applicants are the same as minority applicant
+H1: Rate of white applicants are different
+
+Assuming the alpha level is 0.05.We will conduct a two-sample t-test to test the argument whether there is sufficient evidence for discrimination. Then we will do another two-sample t-test to test whether there is sufficient evidence for discriminatiion bewteen high income white and high income minority.
+
+
+```{r assumption}
+acorn <-read.csv("acorn.csv")
+boxplot(acorn$MIN,acorn$WHITE)
+ftest <- var.test(acorn$MIN,acorn$WHITE)
+ftest
+```
+
+We can see that the p-value of F-test is p = 0.02993. It is less than the significance level alpha which is 0.05. Thus, there is significant difference between the variances of the two sets of data. We can use t-test witch assume unequal variances.
+
+
+```{r t-test}
+res <- t.test(acorn$MIN, acorn$WHITE, var.equal = FALSE,alternative = "greater")
+res
+```
+
+Conclusion:
+
+The p-value of the test is 2.979e-07 that is less than the significance level alpha which is 0.05. We reject the null hypothesis and support the argument that the data are sufficient evidence of discrimination to warrant corrective action.
+
+
+## Comparing suppliers
+
+We will use chi-square test to conduct the analysis since the quality of ornithopters are categorical, instead of continuous variable
+
+Ho: ornithopters made by all three schools produce same qualities
+Ha: ornithopters made by all three shcools produce different qualities
+
+```{r chi-square test}
+table <- matrix(c(12,23,89,8,12,62,21,30,119),ncol=3,nrow = 3,byrow=TRUE)
+colnames(table) <- c("Dead","Art","Fly")
+rownames(table) <- c("Area51","BDV","Giffen")
+table <- as.table(table)
+
+chisq.test(table,correct = F)
+```
+
+Since the p-value is 0.8613 greater than 0.05, we fail to reject the null hypothesis. We conclude that ornithopters made by all three schools produce same qualities.
+
+
+## How deadly are sharks
+
+```{r data exploration}
+shark <- read.csv("sharkattack.csv")
+p <- shark%>%filter(Country.code=="US"|Country.code=="AU")%>%
+  filter(Type=="Provoked"|Type=="Unprovoked")
+p_table<-table(droplevels(p$Type),droplevels(p$Country))
+coul = brewer.pal(3, "Pastel2") 
+data_percentage=apply(p_table, 2, function(x){x*100/sum(x,na.rm=T)})
+barplot(data_percentage,xlab="group", main = "provoked v.s. unprovoked")
+```
+
+By looking at the comparsion between Australia and United States on provked vs unprovoked, we can see that they are at similiar proportion. Provking has about 15% of all shark attacks in Australia and 12% of shark attacks in the United States.
+
+
+
+
+```{r EDA}
+fatal<-p<-shark%>%filter(Country.code=="US"|Country.code=="AU")%>%
+  filter(Fatal=="Y"|Fatal=="N")
+fatal<-table(droplevels(fatal$Country),droplevels(fatal$Fatal))
+
+knitr::kable(fatal)
+
+```
+
+
+
+
+By looking at the fatal versus non-fatal sharks attacks in these two countrie, we can see that there are more sharks attacks in the United States. On the other hand, the proportion of fatal attacks in Australia (26.5%) is much higher than that in the United States (10%). To further test whether Sharks Australia are more deadly or fatal than those in the United States, we will conduct the chi-square test.
+
+```{r chis-sqaure}
+
+chisq.test(fatal,correct = F)
+
+prob <- matrix(c(0.2739171,0.5593643,0.09909629,0.06762231), nrow=2, 
+               dimnames = list(c("Australi","US"),c("NonFatal","Fatal")))
+prob
+total<-879+318+1795+217
+pwr.chisq.test(w = ES.w2(prob), N = total, df = 1, sig.level = 0.05)
+```
+
+From the chi-square test, we have sufficient evidence to say that that sharks attacks in Australia is more fatal than that of in the United States even though the number of attacks in the United States is higher than that of Australia. With sample size equal to 3209, the statistical power of the test chi-square test is 1.
+
+## Power Analysis 
+
+The arcsine transformation is calculated by two times the arcsine of the square root of the proportion.We can transform the proportional parameter from (0,1) to (−π/2,π/2). The effect of the arcsine transformation is similar to the logit. It pulls out the ends of the distribution except the extent that the logit does.
+
+The power to detect the hypothetical parameters are 0.65 and 0.45 is 0.48 while the power to detect the difference between hypothetical parameters 0.25 and 0.05 is 0.82, even though the difference between both pairs of values is 0.2. The reason is that 0.25 and 0.05 are at the end which is extreme value of the distribution. Therefore, it takes more power to detect and arcsine transformation can solve this problem
+
+## Estimater
+
+
+# Case1 MLE of Exponential Distribution
+
+$$f(x;\lambda)=\lambda e^{-\lambda x}$$
+
+$$L(\lambda;X_1,...,X_n)=\lambda e^{-\lambda X_1}\lambda e^{-\lambda X_2}...\lambda e^{-\lambda X_n}$$
+
+$$L(\lambda;X_1,...,X_n)=\lambda^ne^{-\lambda\sum X_i}$$
+
+$$l(\lambda;X_1,...,X_n)=nlog(\lambda)-\lambda \sum X_i$$
+
+$$\frac{dl(\lambda;X1,...,Xn)}{d\lambda}=\frac{n}{\lambda}-\sum X=0$$
+
+$$\hat\lambda=\frac{n}{\sum X_i}=\frac{1}{\bar X_n}$$
+
+
+
+# Case2 Moment Estimator and MLE for new distribution $\theta$
+MOM:
+
+\begin{align}
+E[X]\ & =\ \int^1_0 x((1-\theta)\ +\ 2\theta x)dx \notag \\ 
+& =\ (1-\theta)\int^1_0 xdx +\ \int^1_0 2\theta x^2 dx \notag \\ 
+& =\ (1-\theta)\frac{1}{2}x^2\arrowvert^1_0\ +\ 2\theta \frac{1}{3}x^3\arrowvert^1_0\ \notag \\ 
+& =\ \frac{1}{2} -\ \frac{1}{2}\theta\ +\ \frac{2}{3}\theta \notag \\
+& =\ \frac{1}{6}\theta+\frac{1}{2} \notag
+\end{align}
+
+
+
+
+MLE:
+$$L(\theta;X_1,...,X_n)=[(1-\theta)+2\theta X_1]...[(1-\theta)+2\theta X_n]$$
+
+$$l(\theta;X_1,...,X_n)=log[(1-\theta)+2\theta X_1]+...+log[(1-\theta)+2\theta X_1]$$
+In this situation, we cannot taking the derivative of $l(\theta;X_1,...,X_n)$ to find the maximum value with corresponding $\theta$.
+
+
+
+
+## Rain in Southern Illinois
+```{r}
+ill.60 <- read.table("D:/ma677/677final/ill-60.txt", quote="\"", comment.char="")
+yr60<-as.numeric(as.array(ill.60[,1]))
+ill.61 <- read.table("D:/ma677/677final/ill-61.txt", quote="\"", comment.char="")
+yr61<-as.numeric(as.array(ill.61[,1]))
+ill.62 <- read.table("D:/ma677/677final/ill-62.txt", quote="\"", comment.char="")
+yr62<-as.numeric(as.array(ill.62[,1]))
+ill.63 <- read.table("D:/ma677/677final/ill-63.txt", quote="\"", comment.char="")
+yr63<-as.numeric(as.array(ill.63[,1]))
+ill.64 <- read.table("D:/ma677/677final/ill-64.txt", quote="\"", comment.char="")
+yr64<-as.numeric(as.array(ill.64[,1]))
+```
+
+
+```{r use fitdistplus}
+library(fitdistrplus)
+plotdist(yr60)
+plotdist(yr61)
+plotdist(yr62)
+plotdist(yr63)
+plotdist(yr64)
+
+```
+
+
+From the distribution we can get that: the total rainfall for 1960 is 10.574.The total rainfall for 1961 is 13.197.The total rainfall for 1962 is 10.346. The total rainfall for 1963 is 9.71.The total rainfall for 1960 is 7.11. 
+
+From the total rainfall of each year, the rainfall in 1961 is definitely more than the others because its 13.2 units of rainfall in total. From the distribution of rainfall in year 1960, we can see that this year is wet because of storms. Even though it is not a lot, it produces much more rain each time comparing to rainfall in other 4 years. In terms of all distribution in 5 years, they look quite similar due to the most rainfall which is concentrated on the left side of the distribution.
+
+```{r}
+all_rainfall<-c(yr60,yr61,yr62,yr63,yr64)
+
+
+gamma <- fitdist(all_rainfall, "gamma")
+plot(gamma)
+summary(gamma)
+
+```
+
+
+We fit the gamma distribution into all observed rainfall data of year between 1960 and 1964. From the density and QQplots, the gamma distribution fits really well on this data. The authors are right to use gamma distribution.
+
+```{r}
+
+f <- fitdist(all_rainfall, "gamma",method = "mme")
+b <- bootdist(f)
+summary(b)
+
+fgamma <- fitdist(all_rainfall, "gamma",method = "mle")
+bgmm <- bootdist(fgamma)
+summary(bgmm)
+
+```
+
+For method of moment, the 95% confidence interval of shape from bootstrap sample is (0.2761133,0.5290801), the rate is (1.1749219,2.5559406). For the MLE, the 95% confidence interval of shape from bootstrap sample is (0.3852016,0.514886),the rate is (1.5715661,2.599747). Obviously, the MLE estimates have wider CI and lower variances.The MLE is better due to its lower variance
+
+
+
+## Decision Theory
+
+
+
+
+
+
