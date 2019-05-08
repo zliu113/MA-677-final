@@ -211,7 +211,25 @@ For method of moment, the 95% confidence interval of shape from bootstrap sample
 ## Decision Theory
 
 
-
+$$P(x_1,...,x_n|\delta)=\prod_{i=1}^{N}P(X=x_i|\delta)=\prod_{i=1}^{N}\delta^{x_i}(1-\delta)^{x_i} $$
+Let n be number of $\beta$ with value 1
+$$ (\beta_s, s\in S)=(0,1) $$
+$$ P(x_1,...,x_n|\delta)=\delta^{n}(1-\delta)^{N-n} $$
+Prior:
+$$ P(\delta)=Beta(c,d)=\frac{1}{B(c,d)}\delta^{c-1}(1-\delta)^{d-1} $$
+From Bayes
+$$ P(\delta|x_1,...,x_n)=P(x_1,...,x_n|\delta)P(\delta)=\frac{1}{C}\delta^{c+n-1}(1-\delta)^{N-n+d-1} $$
+Where $C=\int P(x_1,...,x_n,\delta)d\delta$ is the normalizing constant. But notice that this posterior is also a Beta distribution, with new parameters:
+$$ \delta|x_1,...,x_n \sim Beta(c+n, d+N-n)$$
+$$ \beta=E(\delta|x_1,...,x_n)=\frac{c+n}{c+d+N} $$
+From:
+$$ \delta(n)=0\quad for \quad\beta<\alpha $$
+$$ \delta(n)=\lambda\quad for \quad\beta=\alpha, \quad where \quad 0<\lambda<1 $$
+$$ \delta(n)=1\quad for \quad\beta>\alpha $$
+We have:
+$$ \delta(n)=0\quad for \quad(c+n)/(c+d+N)<\alpha $$
+$$ \delta(n)=\lambda\quad for \quad(c+n)/(c+d+N)=\alpha, \quad where \quad 0<\lambda<1 $$
+$$ \delta(n)=1\quad for \quad(c+n)/(c+d+N)>\alpha $$
 
 
 

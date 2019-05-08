@@ -335,19 +335,20 @@ b &lt;- bootdist(f)
 summary(b)</code></pre>
 <pre><code>## Parametric bootstrap medians and 95% percentile CI 
 ##          Median      2.5%     97.5%
-## shape 0.3949944 0.2717425 0.5355889
-## rate  1.7604400 1.1415379 2.5084604</code></pre>
+## shape 0.3970219 0.2758162 0.5318888
+## rate  1.7702009 1.1578002 2.5588069</code></pre>
 <pre class="r"><code>fgamma &lt;- fitdist(all_rainfall, &quot;gamma&quot;,method = &quot;mle&quot;)
 bgmm &lt;- bootdist(fgamma)
 summary(bgmm)</code></pre>
 <pre><code>## Parametric bootstrap medians and 95% percentile CI 
 ##          Median      2.5%     97.5%
-## shape 0.4425674 0.3806663 0.5170494
-## rate  1.9806115 1.5534856 2.5730339</code></pre>
+## shape 0.4430484 0.3805821 0.5160222
+## rate  1.9777792 1.5786669 2.5320409</code></pre>
 <p>For method of moment, the 95% confidence interval of shape from bootstrap sample is (0.2761133,0.5290801), the rate is (1.1749219,2.5559406). For the MLE, the 95% confidence interval of shape from bootstrap sample is (0.3852016,0.514886),the rate is (1.5715661,2.599747). Obviously, the MLE estimates have wider CI and lower variances.The MLE is better due to its lower variance</p>
 </div>
 <div id="decision-theory" class="section level2">
 <h2>Decision Theory</h2>
+<p><span class="math display">\[P(x_1,...,x_n|\delta)=\prod_{i=1}^{N}P(X=x_i|\delta)=\prod_{i=1}^{N}\delta^{x_i}(1-\delta)^{x_i} \]</span> Let n be number of <span class="math inline">\(\beta\)</span> with value 1 <span class="math display">\[ (\beta_s, s\in S)=(0,1) \]</span> <span class="math display">\[ P(x_1,...,x_n|\delta)=\delta^{n}(1-\delta)^{N-n} \]</span> Prior: <span class="math display">\[ P(\delta)=Beta(c,d)=\frac{1}{B(c,d)}\delta^{c-1}(1-\delta)^{d-1} \]</span> From Bayes <span class="math display">\[ P(\delta|x_1,...,x_n)=P(x_1,...,x_n|\delta)P(\delta)=\frac{1}{C}\delta^{c+n-1}(1-\delta)^{N-n+d-1} \]</span> Where <span class="math inline">\(C=\int P(x_1,...,x_n,\delta)d\delta\)</span> is the normalizing constant. But notice that this posterior is also a Beta distribution, with new parameters: <span class="math display">\[ \delta|x_1,...,x_n \sim Beta(c+n, d+N-n)\]</span> <span class="math display">\[ \beta=E(\delta|x_1,...,x_n)=\frac{c+n}{c+d+N} \]</span> From: <span class="math display">\[ \delta(n)=0\quad for \quad\beta&lt;\alpha \]</span> <span class="math display">\[ \delta(n)=\lambda\quad for \quad\beta=\alpha, \quad where \quad 0&lt;\lambda&lt;1 \]</span> <span class="math display">\[ \delta(n)=1\quad for \quad\beta&gt;\alpha \]</span> We have: <span class="math display">\[ \delta(n)=0\quad for \quad(c+n)/(c+d+N)&lt;\alpha \]</span> <span class="math display">\[ \delta(n)=\lambda\quad for \quad(c+n)/(c+d+N)=\alpha, \quad where \quad 0&lt;\lambda&lt;1 \]</span> <span class="math display">\[ \delta(n)=1\quad for \quad(c+n)/(c+d+N)&gt;\alpha \]</span></p>
 </div>
 </div>
 
